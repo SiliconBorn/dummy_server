@@ -1,20 +1,30 @@
 const express = require("express");
-const  dotenv = require("dotenv");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const registerRouter = require("./routes/register");
-dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT
+const { PORT } = require("./serverConfig");
+const authRouter = require("./routes/auth");
+const { authenticateUser } = require("./controller/auth");
+const userRouter = require("./routes/users");
 
+const SERVER = () => {
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(bodyParser.json())
 
-const SERVER = () =>{
-    app.use(bodyParser.json())
-    app.use('/register',registerRouter)
+  app.use(
+      authenticateUser
+    
+  );
 
-    app.listen(PORT,()=>{
-        console.log(`SERVER STARTED ON PORT ${PORT}`);
-    })
-}
+  app.use("/register", registerRouter);
+  app.use("/auth", authRouter);
+  app.use("/project/users", userRouter);
 
-SERVER()
+  app.listen(PORT, () => {
+    console.log(`SERVER STARTED ON PORT ${PORT}`);
+  });
+};
+
+SERVER();

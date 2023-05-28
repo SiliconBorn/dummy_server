@@ -42,7 +42,9 @@ const register = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        return error
+        return  res.status(500).json({
+            error
+        })
     }
 }
 
