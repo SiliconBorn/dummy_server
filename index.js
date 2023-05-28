@@ -9,7 +9,7 @@ const PORT = process.env.PORT
 
 
 const SERVER = () =>{
-    app.use(bodyParser.urlencoded({extended:true}))
+    app.use(bodyParser.json())
     app.use('/register',registerRouter)
 
     app.listen(PORT,()=>{

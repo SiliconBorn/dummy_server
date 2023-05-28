@@ -1,2 +1,14 @@
-[]
-
+[
+  {
+    "username": "Biswash",
+    "password": "$2b$10$lKXuqAu6EeK8oaRm/Q0Q7um4O3Pw5OMYqE49WSxqAOIeFLphsTF82"
+  },
+  {
+    "username": "Nitin",
+    "password": "$2b$10$9d0PhWr6t11r4V0vg/O7C.bGjXBwgYcEofo2B9QxjPBmpbXpAWuBW"
+  },
+  {
+    "username": "prem",
+    "password": "$2b$10$U40uKOjeiDsYq5ebz3wXtepDNasllJSlsYRWvgaS3g2EjOEYlRhZy"
+  }
+]

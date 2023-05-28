@@ -6,15 +6,15 @@ const users = require("../users.json")
 const register = async(req,res)=>{
 
     try {
-        console.log(req)
-        const {username,password}= req?.body;
+        console.log(req.body)
+        const {username,password} = req?.body;
         if(!username || !password){
             return res.status(400).json({
                 message:"REQUEST BODY REQUIRE BOTH USERNAME AND PASSWORD"
             })
         }
 
-        const buf = Buffer.from(password,'base64');
+        const buf = Buffer.from(password.toString(),'base64');
         const hashedPassword = bcrypt.hashSync(buf.toString(),10);
 
         const userDetails = {
@@ -22,7 +22,8 @@ const register = async(req,res)=>{
             password:hashedPassword
         };
 
-        const alreadyExist = users.length>0 && users.find((user)=>user.username.toLowercase()===username.toLowercase());
+        const alreadyExist = users.length > 0 && users.find((user)=>user.username===username);
+        console.group(alreadyExist)
 
         if(alreadyExist){
             return res.status(409).json({
@@ -32,14 +33,11 @@ const register = async(req,res)=>{
 
         users.push(userDetails);
 
-        const result = await fs.writeFile(path.join(__dirname,"..","users.json"),users)
-
-        if(result){
+     await fs.writeFile(path.join(__dirname,"..","users.json"),JSON.stringify(users))
 
             return res.status(200).json({
                 message:"Registered successsfully"
             })
-        }
 
 
     } catch (error) {
