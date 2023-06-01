@@ -35,7 +35,7 @@ const login =(req,res)=>{
                 message:"INVALID PASSWORD FOR REQUESTED USER"
             })
         }
-        const expiresIn = 3600
+        const expiresIn = 60
         const token = jwt.sign({
             user:username,
             password:bufPassword
